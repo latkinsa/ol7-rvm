@@ -1,0 +1,31 @@
+FROM oraclelinux:7-slim
+
+ENV NO_PROXY=localhost,.us.oracle.com,.oracle.com,.vpn.oracle.com \
+  HTTPS_PROXY=http://www-proxy-adcq7-new.us.oracle.com:80 \
+  HTTP_PROXY=http://www-proxy-adcq7-new.us.oracle.com:80
+
+WORKDIR /root
+
+RUN yum makecache fast && \
+  yum -y install hostname which tar gzip xz bzip2 procps \
+  patch autoconf automake bison gcc-c++ libffi-devel libtool \
+  make patch readline-devel sqlite-devel zlib-devel \
+  glibc-headers glibc-devel openssl-devel nodejs libxml2-devel \
+  libxml2 postgresql-devel && \
+  \curl -sSL https://get.rvm.io | bash && \
+  usermod -aG rvm root && \
+  yum -y clean all && \
+  source /etc/profile.d/rvm.sh
+
+# RVM done
+
+RUN ["/bin/bash", "-lc", \
+  "source /etc/profile.d/rvm.sh; rvm install --autolibs=1 ruby-1.9.3"]
+SHELL ["/bin/bash", "-lc"]
+RUN echo "source /etc/profile.d/rvm.sh" >/root/.bashrc;
+
+# COPY Gemfile Gemfile.lock /root/
+
+# RUN bundle config --global path /bundle && \
+#  bundle config --global bin /usr/local/bin && \
+#  bundle install --local
