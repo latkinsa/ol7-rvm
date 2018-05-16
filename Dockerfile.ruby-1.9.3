@@ -1,0 +1,5 @@
+FROM latkinsa/ol7-rvm:rvm-base
+
+COPY libyaml-* /root/
+RUN rpm -i libyaml-* && rvm install 1.9.3 && rm -rf /usr/local/rvm/src/ruby-1.9.3-p551/ && rm -rf libyaml-*
+

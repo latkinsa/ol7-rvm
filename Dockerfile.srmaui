@@ -1,0 +1,9 @@
+FROM latkinsa/ol7-rvm:ruby-1.9.3.y
+
+VOLUME /app
+COPY .bundle /root/.bundle
+COPY .bin /usr/local/bin
+COPY vendor /vendor
+
+EXPOSE 9988
+WORKDIR /app

@@ -1,0 +1,5 @@
+FROM latkinsa/ol7-rvm:rvm-base
+
+COPY libyaml-* /root/
+RUN rpm -i libyaml-* && rvm install 2.4.3 --disable-dtrace && rm -rf /usr/local/rvm/src/ruby-2.4.3/ && rm -rf libyaml-*
+
