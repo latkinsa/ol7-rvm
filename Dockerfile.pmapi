@@ -1,0 +1,9 @@
+FROM latkinsa/ol7-rvm:ruby-2.4.3.y
+ENV PORT=9900
+VOLUME /app
+COPY .bundle /root/.bundle
+COPY .bin /usr/local/bin
+COPY vendor /vendor
+
+EXPOSE 9900
+WORKDIR /app
